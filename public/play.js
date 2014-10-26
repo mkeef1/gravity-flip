@@ -36,14 +36,19 @@ Play.prototype = {
     //Every 1.5seconds, call a function, context in which it will be called
     this.timer = game.time.events.loop(1500, debris.addRowOfDebris, debris);
 
-    this.score = 0;  
-    this.labelScore = game.add.text(20, 20, "0", { font: "30px Arial", fill: "#ffffff" });  
+    this.scoreTimer = game.time.events.loop(2000, this.addToScore, this);
+
+    this.score = 0;
+
+    //score label
+    this.labelScore = game.add.text(20, 20, this.score.toString(), { font: "15px Arial", fill: "#ffffff" });
     
     },
 
     update: function(){
         game.physics.arcade.overlap(ship.sprite, debris.group, this.restartGame, null, this); 
         ship.movement(this.game);
+
         // This function is called 60 times per second    
         // It contains the game's logic
         if (ship.sprite.inWorld == false){
@@ -74,5 +79,10 @@ Play.prototype = {
     
         emitter.start(false, 1600, 5, 0);
     },
+
+    addToScore: function(){
+        this.score += 10;
+        this.labelScore.text = this.score;
+    }
 
 };
