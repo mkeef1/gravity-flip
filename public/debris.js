@@ -17,7 +17,7 @@ var Debris = (function(){
 
   Debris.prototype.create = function(game){
     this.group = game.add.group(); // Create a group  
-    this.group.enableBody = true;  // Add physics to the group  
+    this.group.enableBody = true;  // Add physics to the group
 
 
     //create 20 random images for the debris lines
