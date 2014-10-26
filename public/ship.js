@@ -24,7 +24,7 @@ var Ship = (function(){
   Ship.prototype.create = function(game, x, y){
     //maybe change this later? Seems redundant.
     this.sprite     = game.add.sprite(x, y, 'ship');
-    this.alertText  = game.add.text(450, game.world.centerY, 'GRAVITY FLIP', { font: "19px Arial", fill: "red" });
+    this.alertText  = game.add.text(480, game.world.centerY, 'GRAVITY FLIP', { font: "19px Arial", fill: "red" });
     this.alertText.anchor.setTo(0.5, 0.5); //set x and y in center of the text
 
  
@@ -74,7 +74,7 @@ var Ship = (function(){
     //tweening text across screen at 20 seconds for 10 seconds
     game.add.tween(this.alertText)
     .to({x: game.world.centerX}, 400, Phaser.Easing.Linear.None, true, 2000, 0, false)
-    .to({x: 450}, 2000, Phaser.Easing.Linear.None, true, 2000, 0, false);
+    .to({x: 480}, 2000, Phaser.Easing.Linear.None, true, 2000, 0, false);
 
     //alert sound
     alert.play();
