@@ -9,6 +9,7 @@ var Ship = (function(){
   }
 
   var alert;
+  var flip;
 
   //preload image(s)
   Ship.prototype.preload = function(game){
@@ -17,7 +18,8 @@ var Ship = (function(){
     game.load.image('ship', 'assets/images/ship.png', this.width, this.height);
 
     //ship sounds
-    game.load.audio('alert', 'assets/audio/alarm2.mp3');
+    game.load.audio('alert', ['assets/audio/alarm2.mp3', 'assets/audio/alarm2.ogg']);
+    game.load.audio('flip', 'assets/audio/flip.ogg');
   };
 
   //draw the ship on the canvas
@@ -35,6 +37,8 @@ var Ship = (function(){
     //ship sounds
     alert = game.add.audio('alert'); 
     alert.volume = 1.2;
+    flip = game.add.audio('flip');
+    flip.volume = 2; 
 
     //give the ship no  gravity initially
     this.sprite.body.gravity.y = 0;
@@ -43,10 +47,10 @@ var Ship = (function(){
 
   Ship.prototype.update = function(positon){
     if(this.gravityFlipped){
-      this.sprite.body.gravity.y = -100;
+      this.sprite.body.gravity.y = -150;
     }
     if(!this.gravityFlipped){
-      this.sprite.body.gravity.y = 100;
+      this.sprite.body.gravity.y = 150;
     }
   };
 
@@ -67,6 +71,7 @@ var Ship = (function(){
   },
 
   Ship.prototype.gravityFlip = function(){
+    flip.play();
     this.gravityFlipped = !this.gravityFlipped;
   };
 

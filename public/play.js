@@ -18,7 +18,7 @@ Play.prototype = {
         ship.preload(game);
         debris.preload(game);
         game.load.spritesheet('particle', 'assets/particles/particle.png', 17, 17);
-        game.load.audio('bgmusic', 'assets/audio/main.mp3');
+        game.load.audio('bgmusic', ['assets/audio/main.mp3', 'assets/audio/main.ogg']);
     },
 
     create: function() {
@@ -40,6 +40,7 @@ Play.prototype = {
     //params: every 1.5seconds, call a function, context in which it will be called
     this.timer = game.time.events.loop(1500, debris.addRowOfDebris, debris);
     this.scoreTimer = game.time.events.loop(1700, this.addToScore, this);
+    this.difficultyTimer = game.time.events.loop(50000, debris.increaseDifficulty, debris);
     this.score = 0;
 
     /* PLAY OBJECT TIMERS */
