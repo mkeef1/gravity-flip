@@ -13,7 +13,7 @@ var debris = new Debris();
 var bgmusic;
 
 Play.prototype = {
-    preload: function() { 
+    preload: function(){ 
         game.stage.backgroundColor = '#000000';
         ship.preload(game);
         debris.preload(game);

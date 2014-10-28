@@ -10,6 +10,7 @@ var Ship = (function(){
 
   var alert;
   var flip;
+  var currentAngle = 0;
 
   //preload image(s)
   Ship.prototype.preload = function(game){
@@ -47,19 +48,22 @@ var Ship = (function(){
 
   Ship.prototype.update = function(positon){
     if(this.gravityFlipped){
-      this.sprite.body.gravity.y = -150;
+      this.sprite.body.gravity.y = -100;
     }
     if(!this.gravityFlipped){
-      this.sprite.body.gravity.y = 150;
+      this.sprite.body.gravity.y = 100;
     }
   };
 
   Ship.prototype.movement = function(game) {  
+    this.sprite.angle = 0;
     if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)){
       this.sprite.x -= 6;
+      this.sprite.angle = 10;
     }
     else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)){
       this.sprite.x += 6;
+      this.sprite.angle = -10;
     }
 
     if (game.input.keyboard.isDown(Phaser.Keyboard.UP)){
@@ -71,6 +75,13 @@ var Ship = (function(){
   },
 
   Ship.prototype.gravityFlip = function(){
+    //current angle of the ship for flipping direction
+    if(currentAngle === -180){
+      currentAngle = 0;
+    }else{
+      currentAngle = -180;
+    }
+
     flip.play();
     this.gravityFlipped = !this.gravityFlipped;
   };
