@@ -1,5 +1,7 @@
 /* exported Ship */
 
+var data;
+
 var Ship = (function(){
   'use strict';
   function Ship(){
@@ -27,7 +29,7 @@ var Ship = (function(){
   Ship.prototype.create = function(game, x, y){
     //maybe change this later? Seems redundant.
     this.sprite     = game.add.sprite(x, y, 'ship');
-    this.alertText  = game.add.text(480, game.world.centerY, 'GRAVITY FLIP', { font: "19px Arial", fill: "red" });
+    this.alertText  = game.add.text(700, game.world.centerY, 'GRAVITY FLIP', { font: "19px Arial", fill: "red" });
     this.alertText.anchor.setTo(0.5, 0.5); //set x and y in center of the text
 
  
@@ -48,30 +50,31 @@ var Ship = (function(){
 
   Ship.prototype.update = function(positon){
     if(this.gravityFlipped){
-      this.sprite.body.gravity.y = -100;
+      this.sprite.body.gravity.y = -50;
     }
     if(!this.gravityFlipped){
-      this.sprite.body.gravity.y = 100;
+      this.sprite.body.gravity.y = 50;
     }
   };
 
-  Ship.prototype.movement = function(game) {  
-    this.sprite.angle = 0;
-    if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)){
-      this.sprite.x -= 6;
-      this.sprite.angle = 10;
+  Ship.prototype.movement = function(game) {
+    //  only move when you click
+    if (game.input.mousePointer.isDown)
+    {
+      //  400 is the speed it will move towards the mouse
+      game.physics.arcade.moveToPointer(this.sprite, 400);
+
+      //  if it's overlapping the mouse, don't move any more
+      if (Phaser.Rectangle.contains(this.sprite.body, game.input.x, game.input.y))
+      {
+        this.sprite.body.velocity.setTo(0, 0);
+      }
     }
-    else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)){
-      this.sprite.x += 6;
-      this.sprite.angle = -10;
+    else
+    {
+      this.sprite.body.velocity.setTo(0, this.sprite.body.gravity.y);
     }
 
-    if (game.input.keyboard.isDown(Phaser.Keyboard.UP)){
-      this.sprite.body.velocity.y -= 10;
-    }
-    else if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN)){
-      this.sprite.body.velocity.y += 10;
-    }
   },
 
   Ship.prototype.gravityFlip = function(){
@@ -90,7 +93,7 @@ var Ship = (function(){
     //tweening text across screen at 20 seconds for 10 seconds
     game.add.tween(this.alertText)
     .to({x: game.world.centerX}, 400, Phaser.Easing.Linear.None, true, 2000, 0, false)
-    .to({x: 480}, 2000, Phaser.Easing.Linear.None, true, 2000, 0, false);
+    .to({x: 700}, 2000, Phaser.Easing.Linear.None, true, 2000, 0, false);
 
     //alert sound
     alert.play();

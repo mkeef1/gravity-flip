@@ -22,7 +22,7 @@ var Debris = (function(){
 
 
     //alert
-    this.difficultyAlert = game.add.text(500, game.world.centerY + 120, 'SPEED INCREASED', { font: "19px Arial", fill: "red" });
+    this.difficultyAlert = game.add.text(700, game.world.centerY + 120, 'SPEED INCREASED', { font: "19px Arial", fill: "red" });
     this.difficultyAlert.anchor.setTo(0.5, 0.5); //set x and y in center of the text
 
 
@@ -64,7 +64,7 @@ var Debris = (function(){
     var hole = Math.floor(Math.random() * 5) + 1;
 
     // Add the 6 pipes 
-    for (var i = 0; i < 6; i++){
+    for (var i = 0; i < 8; i++){
         if (i != hole && i != hole + 1){
           this.addOneDebris(i * 60 + 10, 900); 
         }    
@@ -75,7 +75,7 @@ var Debris = (function(){
     this.velocity -= 40;
     game.add.tween(this.difficultyAlert)
     .to({x: game.world.centerX}, 400, Phaser.Easing.Linear.None, true, 2000, 0, false)
-    .to({x: 500}, 2000, Phaser.Easing.Linear.None, true, 2000, 0, false);
+    .to({x: 700}, 2000, Phaser.Easing.Linear.None, true, 2000, 0, false);
   }
 
   function randomImage(){
