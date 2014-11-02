@@ -11,7 +11,12 @@ Boot.prototype = {
     game.load.image('debris4', 'assets/images/asteroid4.jpg');
     game.load.image('debris5', 'assets/images/asteroid5.jpg');
     game.load.image('debris6', 'assets/images/asteroid6.jpg');
-    game.load.image('startButton', 'assets/images/startButton.png');
+    game.load.image('startButton', 'assets/buttons/startButton.png');
+    game.load.image('playAgainButton', 'assets/buttons/playAgainButton.png');
+
+    //backgrounds
+    game.load.image('menuBg', 'assets/states/gh-menu.png');
+    game.load.image('scoreBg', 'assets/states/score.png');
 
     //Audio & FX
     game.load.audio('alert', ['assets/audio/alarm2.mp3', 'assets/audio/alarm2.ogg']);
