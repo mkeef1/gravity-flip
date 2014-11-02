@@ -63,7 +63,7 @@ var Debris = (function(){
   };
 
   Debris.prototype.increaseDifficulty = function(){
-    this.velocity -= 40;
+    this.velocity -= 80;
     game.add.tween(this.difficultyAlert)
     .to({x: game.world.centerX}, 400, Phaser.Easing.Linear.None, true, 2000, 0, false)
     .to({x: 700}, 2000, Phaser.Easing.Linear.None, true, 2000, 0, false);

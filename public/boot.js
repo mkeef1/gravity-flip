@@ -22,6 +22,7 @@ Boot.prototype = {
     game.load.audio('alert', ['assets/audio/alarm2.mp3', 'assets/audio/alarm2.ogg']);
     game.load.audio('flip', 'assets/audio/flip.ogg');
     game.load.audio('bgmusic', ['assets/audio/main.mp3', 'assets/audio/main.ogg']);
+    game.load.audio('xplode', 'assets/audio/explosion.mp3');
   
     //Spritesheets
     game.load.spritesheet('particle', 'assets/particles/particle.png', 17, 17);

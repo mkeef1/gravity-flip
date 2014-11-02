@@ -1,6 +1,10 @@
 /* exported Ship */
 
 var data;
+var alert;
+var flip;
+var xplode;
+var currentAngle = 0;
 
 var Ship = (function(){
   'use strict';
@@ -8,11 +12,8 @@ var Ship = (function(){
     this.height         = 50;
     this.width          = 50;
     this.gravityFlipped = false;
+    this.isInvulnerable = false;
   }
-
-  var alert;
-  var flip;
-  var currentAngle = 0;
 
   //draw the ship on the canvas
   Ship.prototype.create = function(game, x, y){
@@ -28,7 +29,9 @@ var Ship = (function(){
 
     //ship sounds
     alert = game.add.audio('alert'); 
-    alert.volume = 1.2;
+    alert.volume = 1.5;
+    xplode = game.add.audio('xplode'); 
+    xplode.volume = 1.2;
     flip = game.add.audio('flip');
     flip.volume = 2; 
 
@@ -77,7 +80,6 @@ var Ship = (function(){
       currentAngle = -180;
     }
 
-    flip.play();
     this.gravityFlipped = !this.gravityFlipped;
   };
 
@@ -91,6 +93,9 @@ var Ship = (function(){
     this.xplodeEmitter.y = this.sprite.position.y;
     this.xplodeEmitter.explode(3000, 50);
 
+    //play audio
+    xplode.play();
+
     //kill ship
     this.sprite.kill();
   };
@@ -98,13 +103,29 @@ var Ship = (function(){
   Ship.prototype.alert = function(){
     //tweening text across screen at 20 seconds for 10 seconds
     game.add.tween(this.alertText)
-    .to({x: game.world.centerX}, 400, Phaser.Easing.Linear.None, true, 2000, 0, false)
+    .to({x: game.world.centerX}, 50, Phaser.Easing.Linear.None, true, 2000, 0, false)
     .to({x: 700}, 2000, Phaser.Easing.Linear.None, true, 2000, 0, false);
 
     //alert sound
     alert.play();
 
     this.gravityFlip();
+  };
+
+  Ship.prototype.toggleInvulnerability = function(){
+    flip.play();
+
+    //make the ship blink
+    var blink = game.add.tween(this.sprite).to( { alpha: 0 }, 50, Phaser.Easing.Linear.None, true, 0, 100, true);
+
+
+    this.isInvulnerable = true;
+    var turnOffInvulnerability = setTimeout(function(){
+      this.isInvulnerable = false;
+      clearTimeout(turnOffInvulnerability);
+      blink.stop();
+      this.sprite.alpha = 1;
+    }.bind(this), 4000);
   };
 
   return Ship;

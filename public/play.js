@@ -36,6 +36,7 @@ Play.prototype = {
         this.timer = game.time.events.loop(1500, debris.addRowOfDebris, debris);
         this.scoreTimer = game.time.events.loop(1700, this.addToScore, this);
         this.difficultyTimer = game.time.events.loop(50000, debris.increaseDifficulty, debris);
+        this.shipSafeTimer = game.time.events.loop(50000, ship.toggleInvulnerability, ship);
         player.score = 0;
 
         /* PLAY OBJECT TIMERS */
@@ -48,7 +49,9 @@ Play.prototype = {
 
     update: function(){
         //collision checking for the ship vs debris
-        game.physics.arcade.overlap(ship.sprite, debris.group, this.endGame, null, this); 
+        if(!ship.isInvulnerable){
+           game.physics.arcade.overlap(ship.sprite, debris.group, this.endGame, null, this); 
+        }
 
         //ship logic
         ship.movement(this.game);

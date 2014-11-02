@@ -16,9 +16,29 @@ Score.prototype = {
     this.startButton.anchor.setTo(0.5, 0.5);
     this.startButton.width = 150;
     this.startButton.height = 50;
+
+    this.spaceParticles();
   },
 
   startGame: function(){
     game.state.start('play');
+  },
+
+  spaceParticles: function(){
+    var emitter = game.add.emitter(game.world.centerX, 0, 400);
+
+    emitter.width = game.world.width;
+    emitter.makeParticles('particle');
+
+    emitter.minParticleScale = 0.1;
+    emitter.maxParticleScale = 0.5;
+
+    emitter.setYSpeed(200, 500);
+    emitter.setXSpeed(-2, 2);
+
+    emitter.minRotation = 0;
+    emitter.maxRotation = 0;
+
+    emitter.start(false, 1600, 200, 0);
   }
 }
