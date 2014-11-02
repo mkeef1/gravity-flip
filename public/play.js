@@ -12,48 +12,39 @@ var ship = new Ship();
 var debris = new Debris();
 var player = {};
 var bgmusic;
+var xplosion;
 
 Play.prototype = {
-    /*
-    preload: function(){ 
-        ship.preload(game);
-        debris.preload(game);
-        game.load.spritesheet('particle', 'assets/particles/particle.png', 17, 17);
-        game.load.audio('bgmusic', ['assets/audio/main.mp3', 'assets/audio/main.ogg']);
-    },
-    */
-
     create: function() {
-    game.stage.backgroundColor = '#000000';
-    // Set entire physics engine for the game
-    game.physics.startSystem(Phaser.Physics.ARCADE);
+        game.stage.backgroundColor = '#000000';
+        // Set entire physics engine for the game
+        game.physics.startSystem(Phaser.Physics.ARCADE);
 
-    /* IMAGES CREATION */
-    this.spaceParticles();
-    debris.create(game);
-    ship.create(game, game.world.centerX, 5);
+        /* IMAGES CREATION */
+        this.spaceParticles();
+        debris.create(game);
+        ship.create(game, game.world.centerX, 5);
 
-    /* SOUND/MUSIC CREATIONS */
-    bgmusic = game.add.audio('bgmusic');
-    bgmusic.loop = true;
-    bgmusic.volume = 0.5;
-    bgmusic.play();
+        /* SOUND/MUSIC CREATIONS */
+        bgmusic = game.add.audio('bgmusic');
+        bgmusic.loop = true;
+        bgmusic.volume = 0.5;
+        bgmusic.play();
 
-    /* SCORE SYSTEM */
-    //params: every 1.5seconds, call a function, context in which it will be called
-    this.timer = game.time.events.loop(1500, debris.addRowOfDebris, debris);
-    this.scoreTimer = game.time.events.loop(1700, this.addToScore, this);
-    this.difficultyTimer = game.time.events.loop(50000, debris.increaseDifficulty, debris);
-    player.score = 0;
+        /* SCORE SYSTEM */
+        //params: every 1.5seconds, call a function, context in which it will be called
+        this.timer = game.time.events.loop(1500, debris.addRowOfDebris, debris);
+        this.scoreTimer = game.time.events.loop(1700, this.addToScore, this);
+        this.difficultyTimer = game.time.events.loop(50000, debris.increaseDifficulty, debris);
+        player.score = 0;
 
-    /* PLAY OBJECT TIMERS */
-    //gravity flip timer
-    this.flipTimer = game.time.events.loop(30000, ship.alert, ship);
+        /* PLAY OBJECT TIMERS */
+        //gravity flip timer
+        this.flipTimer = game.time.events.loop(30000, ship.alert, ship);
 
-    //score label
-    this.labelScore = game.add.text(20, 20, player.score.toString(), { font: "30px Arial", fill: "#ffffff" });
-    
-    },
+        //score label
+        this.labelScore = game.add.text(20, 20, player.score.toString(), { font: "30px Arial", fill: "#ffffff" });
+        },
 
     update: function(){
         //collision checking for the ship vs debris
@@ -75,9 +66,15 @@ Play.prototype = {
     },
 
     endGame: function(){
-        bgmusic.stop();
-        game.state.start('score');
+        ship.explode();
+
+        var delayGameOver = setTimeout(function(){
+            bgmusic.stop();
+            game.state.start('score');
+            clearTimeout(delayGameOver);
+        }, 2000);
     },
+
 
     spaceParticles: function(){
         var emitter = this.game.add.emitter(game.world.centerX, 0, 400);

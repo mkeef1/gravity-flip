@@ -14,19 +14,6 @@ var Ship = (function(){
   var flip;
   var currentAngle = 0;
 
-  //preload image(s)
-  /*
-  Ship.prototype.preload = function(game){
-    //imageID, imagePath, width, height
-    //ship images
-    game.load.image('ship', 'assets/images/ship.png', this.width, this.height);
-
-    //ship sounds
-    game.load.audio('alert', ['assets/audio/alarm2.mp3', 'assets/audio/alarm2.ogg']);
-    game.load.audio('flip', 'assets/audio/flip.ogg');
-  };
-  */
-
   //draw the ship on the canvas
   Ship.prototype.create = function(game, x, y){
     //maybe change this later? Seems redundant.
@@ -47,6 +34,9 @@ var Ship = (function(){
 
     //give the ship no  gravity initially
     this.sprite.body.gravity.y = 0;
+
+    this.xplodeEmitter = game.add.emitter(0, 0, 300);
+    this.xplodeEmitter.makeParticles('particle');
 
   };
 
@@ -89,6 +79,20 @@ var Ship = (function(){
 
     flip.play();
     this.gravityFlipped = !this.gravityFlipped;
+  };
+
+  Ship.prototype.explode = function(){
+    //play sounds
+
+    //show explosion
+    this.xplodeEmitter.gravity = 0;
+    this.xplodeEmitter.bounce.setTo(0.5, 0.5);
+    this.xplodeEmitter.x = this.sprite.position.x;
+    this.xplodeEmitter.y = this.sprite.position.y;
+    this.xplodeEmitter.explode(3000, 50);
+
+    //kill ship
+    this.sprite.kill();
   };
 
   Ship.prototype.alert = function(){

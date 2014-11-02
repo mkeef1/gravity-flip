@@ -7,17 +7,6 @@ var Debris = (function(){
     this.velocity = -180;
   }
 
-/*
-  Debris.prototype.preload = function(game){
-    game.load.image('debris1', 'assets/images/asteroid1.jpg');
-    game.load.image('debris2', 'assets/images/asteroid2.jpg');
-    game.load.image('debris3', 'assets/images/asteroid3.jpg');
-    game.load.image('debris4', 'assets/images/asteroid4.jpg');
-    game.load.image('debris5', 'assets/images/asteroid5.jpg');
-    game.load.image('debris6', 'assets/images/asteroid6.jpg');
-  };
-*/
-
   Debris.prototype.create = function(game){
     this.group = game.add.group(); // Create a group  
     this.group.enableBody = true;  // Add physics to the group
