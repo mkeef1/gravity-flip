@@ -7,7 +7,10 @@ document.addEventListener("DOMContentLoaded", function() {
   //--GAME STATES
   //Game states are added to the Game Object. When a game
   //is made, State().start will be the default starting state
-  game.state.add('play', Play);  
-  game.state.start('play');
+  game.state.add('boot', Boot);
+  game.state.add('menu', Menu);
+  game.state.add('play', Play);
+  //game.state.add('score', Score);
+  game.state.start('boot');
 });
 

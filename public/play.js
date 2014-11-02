@@ -14,7 +14,6 @@ var bgmusic;
 
 Play.prototype = {
     preload: function(){ 
-        game.stage.backgroundColor = '#000000';
         ship.preload(game);
         debris.preload(game);
         game.load.spritesheet('particle', 'assets/particles/particle.png', 17, 17);
@@ -22,6 +21,7 @@ Play.prototype = {
     },
 
     create: function() {
+    game.stage.backgroundColor = '#000000';
     // Set entire physics engine for the game
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -48,7 +48,7 @@ Play.prototype = {
     this.flipTimer = game.time.events.loop(30000, ship.alert, ship);
 
     //score label
-    this.labelScore = game.add.text(20, 20, this.score.toString(), { font: "15px Arial", fill: "#ffffff" });
+    this.labelScore = game.add.text(20, 20, this.score.toString(), { font: "30px Arial", fill: "#ffffff" });
     
     },
 
@@ -80,7 +80,7 @@ Play.prototype = {
         emitter.minParticleScale = 0.1;
         emitter.maxParticleScale = 0.5;
     
-        emitter.setYSpeed(100, 250);
+        emitter.setYSpeed(200, 500);
         emitter.setXSpeed(-2, 2);
     
         emitter.minRotation = 0;

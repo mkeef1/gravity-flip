@@ -7,6 +7,7 @@ var Debris = (function(){
     this.velocity = -180;
   }
 
+/*
   Debris.prototype.preload = function(game){
     game.load.image('debris1', 'assets/images/asteroid1.jpg');
     game.load.image('debris2', 'assets/images/asteroid2.jpg');
@@ -15,6 +16,7 @@ var Debris = (function(){
     game.load.image('debris5', 'assets/images/asteroid5.jpg');
     game.load.image('debris6', 'assets/images/asteroid6.jpg');
   };
+*/
 
   Debris.prototype.create = function(game){
     this.group = game.add.group(); // Create a group  
@@ -22,12 +24,12 @@ var Debris = (function(){
 
 
     //alert
-    this.difficultyAlert = game.add.text(700, game.world.centerY + 120, 'SPEED INCREASED', { font: "19px Arial", fill: "red" });
+    this.difficultyAlert = game.add.text(700, game.world.centerY + 120, 'SPEED INCREASED', { font: "30px Arial", fill: "red" });
     this.difficultyAlert.anchor.setTo(0.5, 0.5); //set x and y in center of the text
 
 
     //create 20 random images for the debris lines
-    for(var i = 0; i < 30; i++){
+    for(var i = 0; i < 40; i++){
       //params: x, y, imageID, frame, exists(t or f)
       this.group.create(0, 0, randomImage(), 0, false);
     }
@@ -64,7 +66,7 @@ var Debris = (function(){
     var hole = Math.floor(Math.random() * 5) + 1;
 
     // Add the 6 pipes 
-    for (var i = 0; i < 8; i++){
+    for (var i = 0; i < 9; i++){
         if (i != hole && i != hole + 1){
           this.addOneDebris(i * 60 + 10, 900); 
         }    

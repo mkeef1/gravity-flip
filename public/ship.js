@@ -15,6 +15,7 @@ var Ship = (function(){
   var currentAngle = 0;
 
   //preload image(s)
+  /*
   Ship.prototype.preload = function(game){
     //imageID, imagePath, width, height
     //ship images
@@ -24,12 +25,13 @@ var Ship = (function(){
     game.load.audio('alert', ['assets/audio/alarm2.mp3', 'assets/audio/alarm2.ogg']);
     game.load.audio('flip', 'assets/audio/flip.ogg');
   };
+  */
 
   //draw the ship on the canvas
   Ship.prototype.create = function(game, x, y){
     //maybe change this later? Seems redundant.
     this.sprite     = game.add.sprite(x, y, 'ship');
-    this.alertText  = game.add.text(700, game.world.centerY, 'GRAVITY FLIP', { font: "19px Arial", fill: "red" });
+    this.alertText  = game.add.text(700, game.world.centerY, 'GRAVITY FLIP', { font: "30px Arial", fill: "red" });
     this.alertText.anchor.setTo(0.5, 0.5); //set x and y in center of the text
 
  
@@ -59,7 +61,7 @@ var Ship = (function(){
 
   Ship.prototype.movement = function(game) {
     //  only move when you click
-    if (game.input.mousePointer.isDown)
+    if (game.input.activePointer.isDown)
     {
       //  400 is the speed it will move towards the mouse
       game.physics.arcade.moveToPointer(this.sprite, 400);
@@ -67,7 +69,7 @@ var Ship = (function(){
       //  if it's overlapping the mouse, don't move any more
       if (Phaser.Rectangle.contains(this.sprite.body, game.input.x, game.input.y))
       {
-        this.sprite.body.velocity.setTo(0, 0);
+        this.sprite.body.velocity.setTo(0, this.sprite.body.gravity.y);
       }
     }
     else
