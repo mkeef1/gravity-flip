@@ -1,4 +1,6 @@
 /* exported Debris */
+var currentDirection;
+
 var Debris = (function(){
   'use strict';
 
@@ -11,6 +13,7 @@ var Debris = (function(){
     this.group = game.add.group(); // Create a group  
     this.group.enableBody = true;  // Add physics to the group
 
+    currentDirection = game.world.height;
 
     //alert
     this.difficultyAlert = game.add.text(700, game.world.centerY + 120, 'SPEED INCREASED', { font: "30px Arial", fill: "red" });
@@ -18,7 +21,7 @@ var Debris = (function(){
 
 
     //create 20 random images for the debris lines
-    for(var i = 0; i < 40; i++){
+    for(var i = 0; i < 35; i++){
       //params: x, y, imageID, frame, exists(t or f)
       this.group.create(0, 0, randomImage(), 0, false);
     }
@@ -27,6 +30,10 @@ var Debris = (function(){
   Debris.prototype.addOneDebris = function(x, y) {  
       // Get the first dead pipe of our group
       var debris = this.group.getFirstDead();
+
+      if(!debris.width){
+        return;
+      }
 
       //manually set size of the debris
       debris.width = 45;
@@ -39,6 +46,7 @@ var Debris = (function(){
 
       // Set the new position of the debris piece
       debris.reset(x, y);
+      console.log(y);
 
       // Add velocity to the pipe to make it move left
       debris.body.velocity.y = this.velocity; 
@@ -50,20 +58,44 @@ var Debris = (function(){
   };
 
 
-  Debris.prototype.addRowOfDebris = function() { 
+  Debris.prototype.addRowOfDebris = function(){ 
     // Pick where the hole will be
-    var hole = Math.floor(Math.random() * 5) + 1;
+    var hole = Math.floor(Math.random() * 6) + 1;
 
     // Add the 6 pipes 
     for (var i = 0; i < 9; i++){
-        if (i != hole && i != hole + 1){
-          this.addOneDebris(i * 60 + 10, 900); 
-        }    
+      if (i != hole && i != hole + 1){
+        this.addOneDebris(i * 60 + 10, currentDirection); 
+      }    
     }
   };
 
+  Debris.prototype.changeDirection = function(){
+    this.velocity = this.velocity * -1;
+    var newVelocity = this.velocity;
+    this.group.forEach(function(debris){
+      if(currentDirection === game.world.height){
+        debris.body.velocity.y = Math.abs(newVelocity);
+      }else{
+        debris.body.velocity.y = newVelocity;
+      }
+    }, this.group);
+
+    //decided to let this if block check only once, didn't put in forEach above on purpose
+    if(currentDirection === game.world.height){
+      currentDirection = 0;
+    }else{
+      currentDirection = game.world.height;
+    }
+
+  },
+
   Debris.prototype.increaseDifficulty = function(){
-    this.velocity -= 80;
+    if(this.velocity < 0){
+      this.velocity -= 80;
+    }else{
+      this.velocity += 80;
+    }
     game.add.tween(this.difficultyAlert)
     .to({x: game.world.centerX}, 400, Phaser.Easing.Linear.None, true, 2000, 0, false)
     .to({x: 700}, 2000, Phaser.Easing.Linear.None, true, 2000, 0, false);

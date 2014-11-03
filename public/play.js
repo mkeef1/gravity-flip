@@ -33,7 +33,7 @@ Play.prototype = {
 
         /* SCORE SYSTEM */
         //params: every 1.5seconds, call a function, context in which it will be called
-        this.timer = game.time.events.loop(1500, debris.addRowOfDebris, debris);
+        this.timer = game.time.events.loop(1700, debris.addRowOfDebris, debris);
         this.scoreTimer = game.time.events.loop(1700, this.addToScore, this);
         this.difficultyTimer = game.time.events.loop(50000, debris.increaseDifficulty, debris);
         this.shipSafeTimer = game.time.events.loop(50000, ship.toggleInvulnerability, ship);
@@ -41,7 +41,8 @@ Play.prototype = {
 
         /* PLAY OBJECT TIMERS */
         //gravity flip timer
-        this.flipTimer = game.time.events.loop(30000, ship.alert, ship);
+        this.flipTimer   = game.time.events.loop(30000, ship.alert, ship);
+        this.debrisTimer = game.time.events.loop(30000, debris.changeDirection, debris);
 
         //score label
         this.labelScore = game.add.text(20, 20, player.score.toString(), { font: "30px Arial", fill: "#ffffff" });
@@ -61,6 +62,10 @@ Play.prototype = {
         if (ship.sprite.inWorld == false){
             this.restartGame(); 
         }
+    },
+
+    render: function(){
+        //game.debug.body(ship.sprite);
     },
 
     restartGame: function(){

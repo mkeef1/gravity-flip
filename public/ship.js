@@ -19,6 +19,8 @@ var Ship = (function(){
   Ship.prototype.create = function(game, x, y){
     //maybe change this later? Seems redundant.
     this.sprite     = game.add.sprite(x, y, 'ship');
+    //draw from center
+    this.sprite.anchor.setTo(0.5, 0.5);
     this.alertText  = game.add.text(700, game.world.centerY, 'GRAVITY FLIP', { font: "30px Arial", fill: "red" });
     this.alertText.anchor.setTo(0.5, 0.5); //set x and y in center of the text
 
@@ -74,18 +76,22 @@ var Ship = (function(){
 
   Ship.prototype.gravityFlip = function(){
     //current angle of the ship for flipping direction
-    if(currentAngle === -180){
-      currentAngle = 0;
+    if(this.sprite.angle === -180){
+      this.sprite.angle = 0;
+      game.add.tween(this.sprite)
+      .to({x: game.world.centerX, y: 5}, 500, Phaser.Easing.Linear.None, true, 500, 0, false)
     }else{
-      currentAngle = -180;
+      game.add.tween(this.sprite)
+      .to({x: game.world.centerX, y: game.height - 5}, 500, Phaser.Easing.Linear.None, true, 500, 0, false)
+      this.sprite.angle = -180;
     }
 
+    this.toggleInvulnerability();
     this.gravityFlipped = !this.gravityFlipped;
+
   };
 
   Ship.prototype.explode = function(){
-    //play sounds
-
     //show explosion
     this.xplodeEmitter.gravity = 0;
     this.xplodeEmitter.bounce.setTo(0.5, 0.5);
@@ -113,6 +119,7 @@ var Ship = (function(){
   };
 
   Ship.prototype.toggleInvulnerability = function(){
+    //play invuln sound
     flip.play();
 
     //make the ship blink
@@ -125,7 +132,7 @@ var Ship = (function(){
       clearTimeout(turnOffInvulnerability);
       blink.stop();
       this.sprite.alpha = 1;
-    }.bind(this), 4000);
+    }.bind(this), 5000);
   };
 
   return Ship;
