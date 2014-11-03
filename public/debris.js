@@ -21,7 +21,7 @@ var Debris = (function(){
 
 
     //create 20 random images for the debris lines
-    for(var i = 0; i < 35; i++){
+    for(var i = 0; i < 60; i++){
       //params: x, y, imageID, frame, exists(t or f)
       this.group.create(0, 0, randomImage(), 0, false);
     }
@@ -46,7 +46,6 @@ var Debris = (function(){
 
       // Set the new position of the debris piece
       debris.reset(x, y);
-      console.log(y);
 
       // Add velocity to the pipe to make it move left
       debris.body.velocity.y = this.velocity; 
