@@ -3,7 +3,7 @@ var game;
 document.addEventListener("DOMContentLoaded", function() {
   'use strict';
   //MUST use cavnas to perform well on Android
-  game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.CANVAS, 'gameDiv');
+  game = new Phaser.Game(480, 600, Phaser.CANVAS, 'gameDiv');
   //--GAME STATES
   game.state.add('boot', Boot);
   game.state.add('menu', Menu);
