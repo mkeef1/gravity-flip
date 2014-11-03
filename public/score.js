@@ -21,6 +21,8 @@ Score.prototype = {
   },
 
   startGame: function(){
+    debris.velocity = -180;
+    debris.group.destroy(true);
     game.state.start('play');
   },
 

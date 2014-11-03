@@ -1,8 +1,0 @@
-//What's left to do?
-
-1. Custom images for menu and score screen
-2. Ship explosio audio
-3. Icons for Google Play Marketplace
-4. Splash screen for Google Play Marketplace
-5. Description of Gravity Flip, the game.
-6. On screen instructions on how to play.

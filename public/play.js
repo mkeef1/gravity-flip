@@ -49,6 +49,9 @@ Play.prototype = {
         },
 
     update: function(){
+
+        console.log(debris.group.countLiving());
+
         //collision checking for the ship vs debris
         if(!ship.isInvulnerable){
            game.physics.arcade.overlap(ship.sprite, debris.group, this.endGame, null, this); 
