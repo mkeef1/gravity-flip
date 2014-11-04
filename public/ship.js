@@ -61,10 +61,10 @@ var Ship = (function(){
       game.physics.arcade.moveToPointer(this.sprite, 400);
 
       //  if it's overlapping the mouse, don't move any more
-      if (Phaser.Rectangle.contains(this.sprite.body, game.input.x, game.input.y))
-      {
-        this.sprite.body.velocity.setTo(0, this.sprite.body.gravity.y);
-      }
+      //if (Phaser.Rectangle.contains(this.sprite.body, game.input.x, game.input.y))
+      //{
+      //  this.sprite.body.velocity.setTo(0, this.sprite.body.gravity.y);
+      //}
     }
     else
     {

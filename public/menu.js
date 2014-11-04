@@ -21,6 +21,10 @@ Menu.prototype = {
     game.state.start('play');
   },
 
+  update: function(){
+
+  },
+
   spaceParticles: function(){
     var emitter = game.add.emitter(game.world.centerX, 0, 400);
 

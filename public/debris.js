@@ -21,7 +21,7 @@ var Debris = (function(){
 
 
     //create 20 random images for the debris lines
-    for(var i = 0; i < 60; i++){
+    for(var i = 0; i < 50; i++){
       //params: x, y, imageID, frame, exists(t or f)
       this.group.create(0, 0, randomImage(), 0, false);
     }
@@ -36,13 +36,15 @@ var Debris = (function(){
       }
 
       //manually set size of the debris
-      debris.width = 45;
-      debris.height = 45;
+      //debris.width = 45;
+      //debris.height = 45;
+      debris.width = w / 6;
+      debris.height = w / 6;
 
 
       //change the hitboxes for each piece of debris
-      debris.body.width = 45;
-      debris.body.height = 45;
+      debris.body.width = w / 6;
+      debris.body.height = w / 6;
 
       // Set the new position of the debris piece
       debris.reset(x, y);
@@ -56,24 +58,14 @@ var Debris = (function(){
 
   };
 
-
   Debris.prototype.addRowOfDebris = function(){ 
     // Pick where the hole will be
-    var hole;
-    var rocksToMake;
-    if(window.innerWidth > 490){
-      hole = Math.floor(Math.random() * 9) + 1;
-      rocksToMake = 11;
-      console.log('I made 12 rocks');
-    }else{
-      hole = Math.floor(Math.random() * 6) + 1;
-      rocksToMake = 9;
-    }
+    var hole = Math.floor(Math.random() * 5) + 1;
 
     // Add the 6 pipes 
-    for (var i = 0; i < rocksToMake; i++){
+    for (var i = 0; i < 6; i++){
       if (i != hole && i != hole + 1){
-        this.addOneDebris(i * 60 + 10, currentDirection); 
+        this.addOneDebris(i * (w / 6), currentDirection); 
       }    
     }
   };

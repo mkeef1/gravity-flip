@@ -1,13 +1,8 @@
 var game;
 var w, h;
-console.log(window.innerWidth);
-if(window.innerWidth > 2000){
-  w = window.innerWidth * window.devicePixelRatio,
-  h = window.innerHeight * window.devicePixelRatio;
-}else{
-  w = window.innerWidth;
-  h = window.innerHeight;
-}
+w = window.innerWidth;
+h = window.innerHeight;
+
 
 document.addEventListener("DOMContentLoaded", function() {
   'use strict';
