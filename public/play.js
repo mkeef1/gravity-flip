@@ -67,6 +67,9 @@ Play.prototype = {
 
     render: function(){
         //game.debug.body(ship.sprite);
+        //debris.group.forEach(function(d){
+        //    game.debug.body(d);
+        //});
     },
 
     restartGame: function(){

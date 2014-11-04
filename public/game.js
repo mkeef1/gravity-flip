@@ -1,4 +1,7 @@
 var game;
+var w, h;
+w = 480;
+h = 600;
 
 document.addEventListener("DOMContentLoaded", function() {
   'use strict';

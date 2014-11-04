@@ -1,7 +1,3 @@
-
-p{
-  text-align: center;
-}
-#gameDiv canvas {
-  margin: 0px auto;
+body, html {
+  margin:0px;
 }
