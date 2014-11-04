@@ -16,7 +16,7 @@ var Debris = (function(){
     currentDirection = game.world.height;
 
     //alert
-    this.difficultyAlert = game.add.text(700, game.world.centerY + 120, 'SPEED INCREASED', { font: "30px Arial", fill: "red" });
+    this.difficultyAlert = game.add.text(game.world.width + 140, game.world.centerY + 120, 'SPEED INCREASED', { font: "30px Arial", fill: "red" });
     this.difficultyAlert.anchor.setTo(0.5, 0.5); //set x and y in center of the text
 
 
@@ -59,10 +59,19 @@ var Debris = (function(){
 
   Debris.prototype.addRowOfDebris = function(){ 
     // Pick where the hole will be
-    var hole = Math.floor(Math.random() * 6) + 1;
+    var hole;
+    var rocksToMake;
+    if(window.innerWidth > 490){
+      hole = Math.floor(Math.random() * 9) + 1;
+      rocksToMake = 11;
+      console.log('I made 12 rocks');
+    }else{
+      hole = Math.floor(Math.random() * 6) + 1;
+      rocksToMake = 9;
+    }
 
     // Add the 6 pipes 
-    for (var i = 0; i < 9; i++){
+    for (var i = 0; i < rocksToMake; i++){
       if (i != hole && i != hole + 1){
         this.addOneDebris(i * 60 + 10, currentDirection); 
       }    
@@ -97,7 +106,7 @@ var Debris = (function(){
     }
     game.add.tween(this.difficultyAlert)
     .to({x: game.world.centerX}, 400, Phaser.Easing.Linear.None, true, 2000, 0, false)
-    .to({x: 700}, 2000, Phaser.Easing.Linear.None, true, 2000, 0, false);
+    .to({x: game.world.width + 140}, 2000, Phaser.Easing.Linear.None, true, 2000, 0, false);
   }
 
   function randomImage(){
