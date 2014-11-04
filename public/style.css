@@ -3,7 +3,7 @@ body, html {
   background-color: black;
 }
 
-#gameDiv{
+#gameDiv canvas{
   margin:0px auto;
   border:1px solid white;
 }
